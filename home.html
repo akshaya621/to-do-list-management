@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>To Do Manager</title>
+
+    <style>
+
+        body{
+            font-family: Georgia;
+            margin: 40px;
+            background-color: #f2f2f2;
+        }
+
+        .box{
+            background-color: white;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        input, select{
+            padding: 8px;
+        }
+
+        button{
+            padding: 8px;
+            background-color: blueviolet;
+            color: white;
+            border: none;
+        }
+
+        a{
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1 style="color: blueviolet; font-size:40px; font-family:Georgia;">
+    Welcome {{ username }}
+</h1>
+
+    <h2>Dashboard</h2>
+
+    <p>Total Tasks: {{ total }}</p>
+
+    <p>Completed Tasks: {{ completed }}</p>
+
+    <p>Pending Tasks: {{ pending }}</p>
+
+    <hr>
+
+    <!-- Search -->
+
+    <form method="GET" action="/home">
+
+        <input type="text" name="search" placeholder="Search Task">
+
+        <button type="submit">Search</button>
+
+    </form>
+
+    <hr>
+
+    <!-- Add Task -->
+
+    <form action="/add" method="POST">
+
+        <input type="text" name="title" placeholder="Task Title" required>
+
+        <select name="category">
+
+            <option>Study</option>
+
+            <option>Personal</option>
+
+            <option>Work</option>
+
+        </select>
+
+        <select name="priority">
+
+            <option>High</option>
+
+            <option>Medium</option>
+
+            <option>Low</option>
+
+        </select>
+
+        <button type="submit">Add Task</button>
+
+    </form>
+
+    <hr>
+
+    <!-- Display Tasks -->
+
+    {% for task in tasks %}
+
+    <div class="box">
+
+        <h3>{{ task.title }}</h3>
+
+        <p>Category: {{ task.category }}</p>
+
+        <p>Priority: {{ task.priority }}</p>
+
+        <p>Status: {{ task.status }}</p>
+
+        <a href="/complete/{{ loop.index0 }}">Complete</a>
+
+        <a href="/delete/{{ loop.index0 }}">Delete</a>
+
+    </div>
+
+    {% endfor %}
+
+</body>
+
+</html>
